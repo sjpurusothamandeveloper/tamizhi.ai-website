@@ -1,5 +1,6 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { link1 } from 'react-router-dom';
 import "../App.css"; // Ensure your styles are imported here, including the carousel styles.
 const Landing = () => {
   
@@ -48,15 +49,31 @@ const Landing = () => {
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
-
-
-  return (
+ return (
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">YAMAHA</h1>
-        <div className="ml-auto flex gap-2 bg-[#00005A]">
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">About Us</button>
+        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+        <header class="bg-[#00005A] pl-[300px] text-white shadow-md">
+    <div class="container mx-auto flex  bg-[#00005A]   text-white justify-center py-4">
+        <nav className=' bg-[#00005A]  text-items-center'>
+            <ul class="flex space-x-6 bg-[#00005A]  text-items-center font-semibold">
+                <li className='bg-[#00005A]'><a href="#v2_our_services" class="hover:text-blue-600 bg-[#00005A]">Services</a></li>
+                <li className='bg-[#00005A]'><a href="#v2_map" class="hover:text-blue-600 bg-[#00005A]">Where we operate</a></li>
+                <li className=' bg-[#00005A]'><a href="#v2_trustpilot" class="hover:text-blue-600 bg-[#00005A]">Reviews</a></li>
+                <li className='bg-[#00005A]'>
+                    <a href="https://support.airportr.com/hc/en-us/?_ga=2.121682315.109507804.1691413942-1186078943.1691413942" 
+                       class="hover:text-blue-600 bg-[#00005A]" target="_blank">
+                        Help & Support
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+ <div className="ml-auto flex gap-2 bg-[#00005A]">
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">About Us</button>
           <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Products</button>
         </div>
       </header>
