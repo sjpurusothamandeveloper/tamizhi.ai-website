@@ -124,7 +124,7 @@ const Landing = () => {
           alt="Arrival"
           className="w-full h-55 object-cover rounded-t-lg text-white bg-[#00005A]"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">ATC Tracker</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">ATS Tracker</h5>
         <p className="text-white bg-[#00005A]">We collect your bags straight from the plane, and deliver them to any address within our service area.</p>
         <ul className="mt-4 space-y-2 text-white bg-[#00005A]">
           <li className="flex items-center text-white bg-[#00005A]">
@@ -388,13 +388,13 @@ const Landing = () => {
       <hr className="my-6 border-gray-500" />
 
       <div className="bottom flex flex-col md:flex-row justify-between  bg-[#00005A] items-center text-center md:text-left">
-        <p className=" bg-[#00005A]">Airportr © 2025</p>
+        <p className=" bg-[#00005A]">Tamizhi.Ai© 2025</p>
         <div className="flex items-center bg-[#00005A] space-x-2">
-          <img
+          {/* <img 
             src="https://airportr.com/wp-content/uploads/2023/08/footer_stars.svg"
             alt="Trustpilot"
             className="h-5 bg-[#00005A]"/>
-          <p className=" bg-[#00005A]">Trustpilot</p>
+          <p className=" bg-[#00005A]">Trustpilot</p> */}
         </div>
       </div>
     </section>
