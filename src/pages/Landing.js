@@ -53,7 +53,7 @@ const Landing = () => {
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi.Ai</h1>
 
  <div className="ml-auto flex gap-2 bg-[#00005A]">
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Service</button>
@@ -71,9 +71,9 @@ const Landing = () => {
 
       <div>
         <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]">Our Services</h2>
-        <p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]">
+        {/*<p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]"> 
           Airportr streamlines your experience to, through, and from the airport.
-        </p>
+        </p>  */}
       </div>
       <div className="bg-white rounded-[10px] py-10">
   <div className="container mx-auto px-4 md:px-20">
@@ -83,11 +83,11 @@ const Landing = () => {
       ard 1 */}
       <div className="bg-[#00005A] shadow-md rounded-lg p-6 w-full md:w-1/3" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}>
         <img
-          src="https://airportr.com/wp-content/uploads/2023/08/departure_img.png"
+          src="https://airportr.com/wp-content/uploads/2023/08/Departure_img.png"
           alt="Departure"
           className="w-full h-55 object-cover rounded-t-lg"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Departure</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Tamizhi Book</h5>
         <p className="text-white mt-2 bg-[#00005A]">We collect your bags from any home, hotel or office within our service area, and check them in for your flight.</p>
         <ul className="mt-4 space-y-2 bg-[#00005A]">
           <li className="flex items-center bg-[#00005A]">
@@ -124,7 +124,7 @@ const Landing = () => {
           alt="Arrival"
           className="w-full h-55 object-cover rounded-t-lg text-white bg-[#00005A]"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Arrival</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">ATC Tracker</h5>
         <p className="text-white bg-[#00005A]">We collect your bags straight from the plane, and deliver them to any address within our service area.</p>
         <ul className="mt-4 space-y-2 text-white bg-[#00005A]">
           <li className="flex items-center text-white bg-[#00005A]">
@@ -196,9 +196,9 @@ const Landing = () => {
 
     <div className="p-[70px]">
   <h2 className="text-[2.9vw] leading-[3.5vw] font-bold text-center mb-[0.9vw] font-objective text-[#00005A]">
-    Our Airline Partners
+    Our Partners
   </h2>
-  <h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
+  {/*<h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
     You can use our services when flying with some of the world's largest airlines
   </h5>
 </div>
@@ -282,15 +282,15 @@ const Landing = () => {
       <div className="top flex flex-row  text-white bg-[#00005A] md:flex-row justify-between">
       <div className="bg-[#00005A] text-white p-3">
   <ul className="en flex flex-wrap justify-center md:justify-start items-center  bg-[#00005A] space-x-6">
-    <li className=" bg-[#00005A]">
+    {/* <li className=" bg-[#00005A]">
       <a href="https://airportr.com/en/departure/" className="text-white bg-[#00005A]">Departure</a>
-    </li>
-    <li className=" bg-[#00005A]">
+    </li> */}
+    {/* <li className=" bg-[#00005A]">
       <a href="https://airportr.com/en/arrival/" className="text-white bg-[#00005A]">Arrival</a>
-    </li>
-    <li className="  bg-[#00005A]">
+    </li> */}
+    {/* <li className="  bg-[#00005A]">
       <a href="https://airportr.com/en/door-to-door/" className="text-white bg-[#00005A]">Door-to-door</a>
-    </li>
+    </li> */}
     <li className=" bg-[#00005A]">
       <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">Refer-a-friend</a>
     </li>
@@ -341,12 +341,12 @@ const Landing = () => {
         <div className="flex justify-center">
           {/* Dropdown Button */}
           <div className="relative inline-block text-left dropdown">
-            <button
+            {/* <button
               onClick={toggleDropdown}
               className="bg-[#3498DB] text-white px-4 py-2 font-medium text-sm border-none cursor-pointer rounded-md focus:outline-none"
             >
              {selectedLanguage}
-            </button>
+            </button> */}
 
             {/* Dropdown Content */}
             {isOpen && (
