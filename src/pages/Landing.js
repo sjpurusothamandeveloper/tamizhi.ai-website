@@ -66,7 +66,7 @@ return (
  <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-          onClick={() => navigate("/contact")} >
+          onClick={() => navigate("/contact")} >// Navigate to ContactUs page
           Contact Us
         </button>
           <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
