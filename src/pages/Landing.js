@@ -1,9 +1,9 @@
 import React, { useState, useEffect,useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import "../App.css"; // Ensure your styles are imported here, including the carousel styles.
+import "../App.css"; 
 const Landing = () => {
-  
-  const [isOpen, setIsOpen] = useState(false);
+
   const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default Language
  // Function to toggle dropdown visibility
   const toggleDropdown = () => {
@@ -48,18 +48,51 @@ const Landing = () => {
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+  const navigate = useNavigate();
 
- return (
+  const cardsRef = useRef(null);
+ const scrollToCards = () => {
+    if (cardsRef.current) {
+      cardsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const [isOpen, setIsOpen] = useState(false);
+return (
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
         <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
 
- <div className="ml-auto flex gap-2 bg-[#00005A]">
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Service</button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Contact Us</button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Products Us</button>
+ <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+          onClick={() => navigate("/contact")} >
+          Contact Us
+        </button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
         </div>
+        <button
+          className="md:hidden text-white"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? "✖" : "☰"} {/* Toggle between ✖ (close) and ☰ (menu) */}
+        </button>
+
+
+
+{/* Mobile Menu (Shown When Open) */}
+{isOpen && (
+  <div className="ml-auto md:hidden flex flex-col items-center flex gap-2 bg-[#00005A]">
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+     onClick={() => navigate("/contact")} >
+     Contact Us
+   </button>
+     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
+   </div>
+      
+)}
+
       </header>
 
       {/* Image Section */}
@@ -69,14 +102,23 @@ const Landing = () => {
         </div>
       </div>
 
-      <div>
-        <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]">Our Services</h2>
+      <div  ref={cardsRef}>
+      {Array.from({ length:1}).map((_, index) => (
+        <div  id={`card-${index + 1}`}>
+        <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]"   key={index}
+        
+        >Our Services</h2>
         <p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]">
           Airportr streamlines your experience to, through, and from the airport.
         </p>
+        </div>
+      ))}
       </div>
-      <div className="bg-white rounded-[10px] py-10">
-  <div className="container mx-auto px-4 md:px-20">
+      
+
+      <div  className="bg-white rounded-[10px] py-10">
+      
+  <div className="container mx-auto px-4 md:px-20" >
     {/* Flex container for cards */}
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       {/* C
@@ -192,6 +234,8 @@ const Landing = () => {
       </div>
     </div>
   </div>
+
+
 </div>
 
     <div className="p-[70px]">
