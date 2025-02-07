@@ -3,253 +3,249 @@ import React, { useState, useEffect,} from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const ContactUs = () => {
-   const navigate = useNavigate();
+
+  const navigate = useNavigate(); // Initialize navigate
+ const goToLandingPage = () => {
+    navigate('/')
+  }
+   {/*form*/}
   const [formData, setFormData] = useState({
     email: "",
     mobilenumber: "",
     description: "",
     attachments: [],
   });
-
-  const handleChange = (event) => {
+ const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handleFileChange = (event) => {
+ const handleFileChange = (event) => {
     const files = event.target.files;
     setFormData((prev) => ({ ...prev, attachments: [...files] }));
   };
-
-  const handleSubmit = (event) => {
+ const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form Data Submitted:", formData);
   };
-  const [isOpen, setIsOpen] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default Language
-   // Function to toggle dropdown visibility
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-    };
-   // Function to change language when an option is clicked
-    const changeLanguage = (language) => {
-      setSelectedLanguage(language);
-      setIsOpen(false); // Close the dropdown after selecting
-    };
-  // Close the dropdown when clicking outside
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (event.target && !event.target.closest('.dropdown')) {
-          setIsOpen(false);
-        }
-      };
+
+   // Default language is English
+  const [mylanguage, setMylanguage] = useState("English"); 
+  // This function is called when the user selects a new language
+  const handlelanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setMylanguage(selectedLanguage);
+    changeLanguage(selectedLanguage);  // Call a function to handle the language change
+  };
   
-      window.addEventListener('click', handleClickOutside);
-      return () => {
-        window.removeEventListener('click', handleClickOutside);
-      };
-    }, []);
+  // This function will perform actions when the language changes
+  const changeLanguage = (language) => {
+    console.log(`Language changed to: ${language}`);
+    // Perform any action based on the selected language
+    // For example, you can translate the page content, or adjust styles based on the language
+    if (language === "English") {
+      // Handle English-specific logic
+    } else if (language === "Tamil") {
+      // Handle Tamil-specific logic
+    } else if (language === "Hindi") {
+      // Handle Hindi-specific logic
+    }
+  };
+  
+//menubar
+  const [isOpen, setIsOpen] = useState(false);
+    const toggleMenu = () => {
+      setIsOpen(!isOpen);  // Toggle between true and false
+      console.log("Menu Open:", !isOpen);
+    };
+    // Optionally, you can reset it manually somewhere else in the code, like on a different button click:
+  const [inputValue, setInputValue] = useState("");
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  console.log("Menu Open:", !isOpen);  // Comment this out when not needed anymore
+  
 
   return (
     <div>
+    {/*header*/}
+    {/* Header Section */}
     <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
         <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
 
- <div className="ml-auto flex gap-2 bg-[#00005A]">
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Services</button>
-       <button
-          className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-          onClick={() => navigate("/contact")} // Navigate to ContactUs page
-        >
+ <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={goToLandingPage}  >Services</button>
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+          onClick={() => navigate("/contact")} >
           Contact Us
         </button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Products Us</button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
         </div>
-      </header>
-      <div className="w-full min-h-screen  flex pl-[100px] items-center">
-  
-    <form onSubmit={handleSubmit} className="space-y-4   w-full">
-      {/* Email Field */}
-      <div className="flex flex-col w-full">
-        <label className="font-semibold">Your Email Address</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="border p-3 rounded w-[650px]"
-        />
-      </div>
-
-      {/* Mobile Number */}
-      <div className="flex flex-col w-full">
-        <label className="font-semibold">Mobile Number</label>
-        <input
-          type="number"
-          name="Mobilenumber"
-          value={formData.Mobilenumber}
-          onChange={handleChange}
-          required
-          className="border p-3 rounded w-[650px]"
-        />
-      </div>
-
-      {/* Description */}
-      <div className="flex flex-col w-full">
-        <label className="font-semibold">Description</label>
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-          className="border p-3 rounded h-24 w-[650px]"
-        ></textarea>
-        <p className="text-[#00005A] text-sm">
-          Kindly provide as much relevant information as possible.
-        </p>
-      </div>
-
-      {/* File Upload */}
-      <div className="flex flex-col w-full">
-        <label className="font-semibold">Attachments</label>
-        <input type="file" multiple onChange={handleFileChange} className="border p-3 rounded w-[650px]" />
-        <span className="text-[#00005A] text-sm">Add file or drop files here</span>
-      </div>
-
-      {/* Submit Button */}
-      <div>
-        <button type="submit" className="bg-blue-600 text-white p-3 rounded hover:bg-blue-700 w-[150px]">
-          Submit
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white text-2xl focus:outline-none"
+          onClick={() => {
+            setIsOpen(!isOpen);
+            console.log("Menu Open:", !isOpen); // Debugging
+          }}
+        >
+          {isOpen ? "✖" : "☰"} {/* Toggle icon */}
         </button>
-      </div>
-    </form>
-  </div>
+         {/* Mobile Dropdown Menu (Show/Hide on Click) */}
+         <div
+  className={`md:hidden flex flex-col items-center gap-3 mt-3 bg-blue-700 p-3 rounded-md transition-all duration-300 ease-in-out ${
+    isOpen ? "block" : "hidden"
+  }`}
+>
 
 
-     <section
-          id="scroll_footer"
-          className="v2_footer flex-row bg-[#00005A] h-[305px] text-white mt-[5.9vw] p-[2vw] rounded-t-[1.5vw] relative z-10">
-          <div className="top flex flex-row  text-white bg-[#00005A] md:flex-row justify-between">
-          <div className="bg-[#00005A] text-white p-3">
-      <ul className="en flex flex-wrap justify-center md:justify-start items-center  bg-[#00005A] space-x-6">
-        <li className=" bg-[#00005A]">
-          <a href="https://airportr.com/en/departure/" className="text-white bg-[#00005A]">Departure</a>
-        </li>
-        <li className=" bg-[#00005A]">
-          <a href="https://airportr.com/en/arrival/" className="text-white bg-[#00005A]">Arrival</a>
-        </li>
-        <li className="  bg-[#00005A]">
-          <a href="https://airportr.com/en/door-to-door/" className="text-white bg-[#00005A]">Door-to-door</a>
-        </li>
-        <li className=" bg-[#00005A]">
-          <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">Refer-a-friend</a>
-        </li>
-        <li className=" bg-[#00005A]">
-          <a href="https://airportr.com/en/terms-and-conditions/" className="text-white bg-[#00005A]">Terms of Use</a>
-        </li>
-        <li className=" bg-[#00005A]">
-          <a href="https://airportr.com/en/privacy-policy/" className="text-white bg-[#00005A]">Privacy Policy</a>
-        </li>
-      </ul>
-    
-              <div className="optin-footer mt-6 bg-[#00005A]">
-                <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
-                  Sign up for emails and receive offers and service updates
-                </h2>
-                <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
-                  <div className="input w-full bg-[#00005A] sm:w-auto">
-                    <input
-                      type="email"
-                      placeholder="Enter email"
-                      className="p-2 w-full sm:w-64 border bg-[#00005A] border-gray-300 rounded-md text-black" style={{ borderRadius: "1.5vw 1.5vw 1.5vw 1.5vw" }} />
-                  </div>
-                  <input
-                    type="submit"
-                    value="Opt In"
-                    className="p-3 bg-[#0b57d0ff] text-white  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
-                </form>
-              </div>
-            </div>
-    
-          
-            <footer className="bg-[#00005A]  mr-[1vw]  p-[1vw]  pr-[10px] text-white py-1">
-          <div className="flex justify-end  absolute right-[1vw] top-[1vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook className="text-2xl hover:text-blue-500  bg-[#00005A] transition duration-300" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram className="text-2xl hover:text-pink-500  bg-[#00005A] transition duration-300" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter className="text-2xl hover:text-blue-400    bg-[#00005A] transition duration-300" />
-            </a>
-          </div>
-        </footer>
-        
-    
-        <footer className="bg-[#00005A] text-white py-6 mt-12">
-            <div className="flex justify-center">
-              {/* Dropdown Button */}
-              <div className="relative inline-block text-left dropdown">
-                <button
-                  onClick={toggleDropdown}
-                  className="bg-[#3498DB] text-white px-4 py-2 font-medium text-sm border-none cursor-pointer rounded-md focus:outline-none"
-                >
-                 {selectedLanguage}
-                </button>
-    
-                {/* Dropdown Content */}
-                {isOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-[#f1f1f1] shadow-lg z-10 rounded-md">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                      onClick={() => changeLanguage('English')}
-                    >
-                      English
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                      onClick={() => changeLanguage('Hindi')}
-                    >
-                      Hindi
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                      onClick={() => changeLanguage('Tamil')}
-                    >
-                      Tamil
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                      onClick={() => changeLanguage('French')}
-                    >
-                      French
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          </footer>
-        </div>
-          <hr className="my-6 border-gray-500" />
-    
-          <div className="bottom flex flex-col md:flex-row justify-between  bg-[#00005A] items-center text-center md:text-left">
-            <p className=" bg-[#00005A]">Airportr © 2025</p>
-            <div className="flex items-center bg-[#00005A] space-x-2">
-              <img
-                src="https://airportr.com/wp-content/uploads/2023/08/footer_stars.svg"
-                alt="Trustpilot"
-                className="h-5 bg-[#00005A]"/>
-              <p className=" bg-[#00005A]">Trustpilot</p>
-            </div>
-          </div>
-        </section>
+{/* Mobile Menu (Shown When Open) */}
+{isOpen && (
+  <div className="ml-auto md:hidden flex flex-col items-center flex gap-2 bg-[#00005A] text-2xl focus:outline-none">
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Services</button>
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+     onClick={() => navigate("/contact")} >
+     Contact Us
+   </button>
+     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
+   </div>
       
+)}
+</div>
+      </header>
+      {/*form*/}
+      <div className="w-full min-h-screen flex pl-4 sm:pl-[100px] items-center">
+  <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-screen-lg mx-auto">
+    {/* Email Field */}
+    <div className="flex flex-col w-full">
+      <label className="font-semibold">Your Email Address</label>
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+        className="border p-3 rounded w-full sm:w-[650px] w-[150px]"
+      />
+    </div>
+
+    {/* Mobile Number */}
+    <div className="flex flex-col w-full">
+      <label className="font-semibold">Mobile Number</label>
+      <input
+        type="number"
+        name="Mobilenumber"
+        value={formData.Mobilenumber}
+        onChange={handleChange}
+        required
+        className="border p-3 rounded w-full sm:w-[650px] w-[150px]"
+      />
+    </div>
+
+    {/* Description */}
+    <div className="flex flex-col w-full">
+      <label className="font-semibold">Description</label>
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        required
+        className="border p-3 rounded h-24 w-full sm:w-[650px] w-[150px]"
+      ></textarea>
+      <p className="text-[#00005A] text-sm">
+        Kindly provide as much relevant information as possible.
+      </p>
+    </div>
+
+    {/* File Upload */}
+    <div className="flex flex-col w-full">
+      <label className="font-semibold">Attachments</label>
+      <input
+        type="file"
+        multiple
+        onChange={handleFileChange}
+        className="border p-3 rounded w-full sm:w-[650px] w-[150px]"
+      />
+      <span className="text-[#00005A] text-sm">Add file or drop files here</span>
+    </div>
+
+    {/* Submit Button */}
+    <div>
+      <button
+        type="submit"
+        className="bg-blue-600 text-white p-3 rounded hover:bg-blue-700 w-full sm:w-[150px] w-[90px] mx-auto"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+    {/* footer*/}
+     <section
+           id="scroll_footer"
+           className="v2_footer flex-row bg-[#00005A] h-[305px] text-white mt-[5.9vw] p-[2vw] rounded-t-[1.5vw] relative z-10">
+           <div className="top flex flex-row  text-white bg-[#00005A] md:flex-row justify-between">
+           <div className="bg-[#00005A] text-white p-3">
+       <ul className="en flex flex-wrap pl-[1px]  flex flex-col md:flex-row  bg-[#00005A] space-x-6">
+         <li className=" bg-[#00005A] pl-[23px]">
+           <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">Refer-a-friend</a>
+         </li>
+         <li className="bg-[#00005A] ">
+           <a href="https://airportr.com/en/terms-and-conditions/" className="text-white bg-[#00005A] ">Terms of Use</a>
+         </li>
+         <li className="bg-[#00005A]">
+           <a href="https://airportr.com/en/privacy-policy/" className="text-white bg-[#00005A]">Privacy Policy</a>
+         </li>
+       </ul>
+       <footer className="bg-[#00005A]  mr-[1vw]  p-[1vw]  pr-[10px] text-white py-1">
+           <div className="flex justify-end  absolute right-[8vw] top-[3vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
+             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+               <FaFacebook className="text-2xl hover:text-blue-500  bg-[#00005A] transition duration-300" />
+             </a>
+             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+               <FaInstagram className="text-2xl hover:text-pink-500  bg-[#00005A] transition duration-300" />
+             </a>
+             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+               <FaTwitter className="text-2xl hover:text-blue-400    bg-[#00005A] transition duration-300" />
+             </a>
+           </div>
+         </footer>
+           <div className="optin-footer mt-6  pl-[18px] bg-[#00005A]">
+                 <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
+                   Sign up for emails and receive offers and service updates
+                 </h2>
+                 <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
+                   <div className="input w-full bg-[#00005A] sm:w-auto">
+                     <input
+                       type="email"
+                       placeholder="Enter email"
+                       className="p-2 w-full sm:w-64 border bg-[#00005A] border-gray-300 rounded-md text-black" style={{ borderRadius: "1.5vw 1.5vw 1.5vw 1.5vw" }} />
+                   </div>
+                   <input
+                     type="submit"
+                     value="Opt In"
+                     className="p-3 bg-[#0b57d0ff] text-white  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
+                 </form>
+               </div>
+               </div>
+     
+               <form className='bg-[#00005A] pt-[16px] '>
+       <select 
+         value={mylanguage} 
+         onChange={handlelanguageChange} 
+         className='bg-[#00005A] text-white'  // Set background color and text color for select
+       >
+         <option value="English" className='bg-[#00005A] text-white'>English</option> 
+         <option value="Tamil" className='bg-[#00005A] text-white'>Tamil</option>
+         <option value="Hindi" className='bg-[#00005A] text-white'>Hindi</option>
+       </select>
+     </form>
+         </div>
+           <hr className="my-6 border-gray-500" />
+           <div className="bottom flex flex-col md:flex-row  pl-[25px] justify-between  bg-[#00005A] items-center text-center md:text-left">
+             <p className=" bg-[#00005A]">Tamizhi © 2025</p>
+              </div>
+         </section>
     </div>
 
   );

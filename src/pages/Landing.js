@@ -1,74 +1,39 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import ReactDOM from "react-dom/client";
+import { FaFacebook, FaInstagram, FaTwitter, FaBars } from "react-icons/fa";
+import $ from "jquery"; // Import jQuery
 import "../App.css"; 
+import img1 from "../tamizhi1.jpg"
+import img2 from "../tamizhi2.jpg"
 const Landing = () => {
+ //carosual section
+  const carouselRef = useRef(null);
+ useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-// Close the dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (event.target && !event.target.closest('.dropdown')) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-  const carouselRef = useRef(null); // Reference to the carousel element
-
-  useEffect(() => {
-    // Function to auto-scroll the carousel
-    const scrollCarousel = () => {
-      if (carouselRef.current) {
-        carouselRef.current.scrollLeft += 1; // Scroll the carousel by 1px
-
-        // Reset scroll position if it reaches the end (for infinite loop effect)
-        if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth - carouselRef.current.clientWidth) {
-          carouselRef.current.scrollLeft = 0;
-        }
-      }
-    };
-
-    // Set an interval to scroll the carousel every 10ms
-    const intervalId = setInterval(scrollCarousel, 10);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
+    // Clone all items to create an infinite effect
+    const items = Array.from(carousel.children);
+    items.forEach((item) => {
+      const clone = item.cloneNode(true);
+      carousel.appendChild(clone);
+    });
   }, []);
   const navigate = useNavigate();
-
+//cards scrolldown
   const cardsRef = useRef(null);
  const scrollToCards = () => {
     if (cardsRef.current) {
       cardsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);  // Toggle between true and false
-    console.log("Menu Open:", !isOpen);
-  };
-  
-  // Optionally, you can reset it manually somewhere else in the code, like on a different button click:
-
-  const [inputValue, setInputValue] = useState("");
-
-const handleInputChange = (event) => {
-  setInputValue(event.target.value);
-};
-
-const closeMenu = () => {
-  setIsOpen(false);  // Close the menu
-  setInputValue("");  // Reset the input field
-};
-console.log("Menu Open:", !isOpen);  // Comment this out when not needed anymore
- 
-const [mylanguage, setMylanguage] = useState("English"); // Default language is English
-
+  useEffect(() => {
+    $("#menuToggle").click(() => {
+      $("#menuItems").stop(true, true).slideToggle(); // Toggle menu visibility
+    });
+  }, []);
+ // Default language is English
+const [mylanguage, setMylanguage] = useState("English"); 
 // This function is called when the user selects a new language
 const handleChange = (event) => {
   const selectedLanguage = event.target.value;
@@ -95,9 +60,18 @@ return (
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+      <nav className="bg-[#00005A] p-4">
+      <div className="container mx-auto flex bg-[#00005A] justify-between items-center">
+        {/* Left Side: Heading */}
+        <h1 id="heading" className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
 
- <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
+        {/* Right Side: Menu Toggle Button */}
+        <button id="menuToggle" className="md:hidden pl-[140px]  bg-[#00005A] text-white text-3xl">
+          ☰
+        </button>
+
+        {/* Large Screen Menu */}
+        <div className="ml-auto hidden md:flex text-right pl-[800px] flex gap-2 bg-[#00005A]">
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
           onClick={() => navigate("/contact")} >
@@ -105,37 +79,27 @@ return (
         </button>
           <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
         </div>
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white text-2xl focus:outline-none"
-          onClick={() => {
-            setIsOpen(!isOpen);
-            console.log("Menu Open:", !isOpen); // Debugging
-          }}
-        >
-          {isOpen ? "✖" : "☰"} {/* Toggle icon */}
+      </div>
+
+      {/* Mobile Menu (Hidden by default) */}
+       {/* Mobile Menu (Hidden by Default, Shows in a Row When Open) */}
+     {/* Mobile Menu (Initially Hidden) */}
+      <div
+        id="menuItems"
+        className="hidden md:hidden flex flex-row justify-center gap-2 p-4 bg-[#00005A]"
+      >
+        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Services
         </button>
-         {/* Mobile Dropdown Menu (Show/Hide on Click) */}
-         <div
-  className={`md:hidden flex flex-col items-center gap-3 mt-3 bg-blue-700 p-3 rounded-md transition-all duration-300 ease-in-out ${
-    isOpen ? "block" : "hidden"
-  }`}
->
-
-
-{/* Mobile Menu (Shown When Open) */}
-{isOpen && (
-  <div className="ml-auto md:hidden flex flex-col items-center flex gap-2 bg-[#00005A] text-2xl focus:outline-none">
-  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
-  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-     onClick={() => navigate("/contact")} >
-     Contact Us
-   </button>
-     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
-   </div>
-      
-)}
-</div>
+        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Contact Us
+        </button>
+        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Products
+        </button>
+      </div>
+    </nav>
+  
       </header>
 
       {/* Image Section */}
@@ -144,10 +108,10 @@ return (
           "Travel smart & enjoy seamless <span className="font-extrabold font-[Times_New_Roman] text-[rgb(120,80,250)] bg-transparent">bag-free</span> travel"
         </div>
       </div>
-
+    {/* our services */}
       <div  ref={cardsRef}>
-      {Array.from({ length:1}).map((_, index) => (
-        <div  id={`card-${index + 1}`}>
+        {Array.from({ length: 1 }).map((_, index) => (
+          <div id={`card-${index + 1}`} key={index}>
         <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]"   key={index}
         
         >Our Services</h2>
@@ -157,20 +121,17 @@ return (
         </div>
       ))}
       </div>
-      
-
-      <div  className="bg-white rounded-[10px] py-10">
-      
-  <div className="container mx-auto px-4 md:px-20" >
+       {/* cards section */}
+ <div  className="bg-white rounded-[10px] py-10">
+      <div className="container mx-auto px-4 md:px-20" >
     {/* Flex container for cards */}
     <div className="flex flex-col md:flex-row gap-4 justify-between">
-      {/* C
-      ard 1 */}
+      {/* Card 1 */}
       <div className="bg-[#00005A] shadow-md rounded-lg p-6 w-full md:w-1/3" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}>
         <img
-          src="https://airportr.com/wp-content/uploads/2023/08/departure_img.png"
-          alt="Departure"
-          className="w-full h-55 object-cover rounded-t-lg"
+          src={img1}
+          alt="tamizhi1"
+          className="w-full h-50 object-cover rounded-t-lg" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}
         />
         <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Departure</h5>
         <p className="text-white mt-2 bg-[#00005A]">We collect your bags from any home, hotel or office within our service area, and check them in for your flight.</p>
@@ -205,9 +166,9 @@ return (
       {/* Card 2 */}
       <div className="bg-[#00005A] shadow-md rounded-lg p-6 w-full md:w-1/3" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}>
         <img
-          src="https://airportr.com/wp-content/uploads/2023/08/arrival_img.png"
-          alt="Arrival"
-          className="w-full h-55 object-cover rounded-t-lg text-white bg-[#00005A]"
+          src={img2}
+          alt="tamizhi2"
+          className="w-full h-45 object-cover rounded-t-lg text-white bg-[#00005A]"style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}
         />
         <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Arrival</h5>
         <p className="text-white bg-[#00005A]">We collect your bags straight from the plane, and deliver them to any address within our service area.</p>
@@ -277,10 +238,8 @@ return (
       </div>
     </div>
   </div>
-
-
 </div>
-
+         {/* text section */}
     <div className="p-[70px]">
   <h2 className="text-[2.9vw] leading-[3.5vw] font-bold text-center mb-[0.9vw] font-objective text-[#00005A]">
     Our  Partners
@@ -289,80 +248,61 @@ return (
     You can use our services when flying with some of the world's largest airlines
   </h5>
 </div>
+         {/* carosual section */}
 
-
-<div className="landing-container">
-      {/* Carousel Section */}
+         <div className="landing-container overflow-hidden">
       <div
-        ref={carouselRef} // Reference to the carousel
-        className="carousel flex overflow-x-auto gap-5 p-5 whitespace-nowrap scroll-snap-x mandatory"
+        ref={carouselRef}
+        className="carousel flex gap-5 p-5 whitespace-nowrap"
+        style={{
+          display: "flex",
+          animation: "scroll-left 15s linear infinite", // Adjust speed here
+        }}
       >
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2018/05/british-airways-logo.svg"
-            alt="British Airways"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2021/09/Swiss.svg"
-            alt="Swiss"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/08/austrian_logo.svg"
-            alt="Austrian Airlines"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/10/klm_logo-cropped.svg"
-            alt="KLM"
-            className="w-[10vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/08/edelweiss_logo.svg"
-            alt="Edelweiss"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/08/american_logo.svg"
-            alt="American Airlines"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/08/virgin_logo.svg"
-            alt="Virgin Airlines"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/08/singapore_logo.svg"
-            alt="Singapore Airlines"
-            className="w-[13vw] h-auto"
-          />
-        </div>
-        <div className="carousel-item flex-shrink-0 scroll-snap-center">
-          <img
-            src="https://airportr.com/wp-content/uploads/2023/10/easyJet-nw.svg"
-            alt="EasyJet"
-            className="w-[13vw] h-auto"
-          />
-        </div>
+        {/* Original Set of Images */}
+        {[
+          "https://airportr.com/wp-content/uploads/2018/05/british-airways-logo.svg",
+          "https://airportr.com/wp-content/uploads/2021/09/Swiss.svg",
+          "https://airportr.com/wp-content/uploads/2023/08/austrian_logo.svg",
+          "https://airportr.com/wp-content/uploads/2023/10/klm_logo-cropped.svg",
+          "https://airportr.com/wp-content/uploads/2023/08/edelweiss_logo.svg",
+          "https://airportr.com/wp-content/uploads/2023/08/american_logo.svg",
+          "https://airportr.com/wp-content/uploads/2023/08/virgin_logo.svg",
+          "https://airportr.com/wp-content/uploads/2023/08/singapore_logo.svg",
+          "https://airportr.com/wp-content/uploads/2023/10/easyJet-nw.svg",
+        ].map((src, index) => (
+          <div
+            key={index}
+            className="carousel-item flex-shrink-0 scroll-snap-center"
+            style={{
+              border: "2px solid #00005A", // Separate border for each item
+              padding: "10px",
+              borderRadius: "8px",
+            }}
+          >
+            <img src={src} alt={`Logo ${index}`} className="w-[13vw] h-auto" />
+          </div>
+        ))}
       </div>
+
+      <style jsx>{`
+        @keyframes scroll-left {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        .carousel {
+          display: flex;
+          white-space: nowrap;
+          will-change: transform;
+        }
+      `}</style>
     </div>
-   
+           {/* footer*/}
     <section
       id="scroll_footer"
       className="v2_footer flex-row bg-[#00005A] h-[305px] text-white mt-[5.9vw] p-[2vw] rounded-t-[1.5vw] relative z-10">
@@ -393,20 +333,20 @@ return (
       </div>
     </footer>
       <div className="optin-footer mt-6 bg-[#00005A]">
-            <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
+            <h2 className="text-lg bg-[#00005A] text-[1.7vw] pl-[18px]  pt-[16px] font-bold">
               Sign up for emails and receive offers and service updates
             </h2>
             <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
-              <div className="input w-full bg-[#00005A] sm:w-auto">
+              <div className="input w-full pl-[15px] bg-[#00005A] sm:w-auto">
                 <input
                   type="email"
                   placeholder="Enter email"
-                  className="p-2 w-full sm:w-64 border bg-[#00005A] border-gray-300 rounded-md text-black" style={{ borderRadius: "1.5vw 1.5vw 1.5vw 1.5vw" }} />
+                  className="p-2 w-full sm:w-64 border pl-[5px] bg-[#00005A] border-gray-300 rounded-md text-black" style={{ borderRadius: "1.5vw 1.5vw 1.5vw 1.5vw" }} />
               </div>
               <input
                 type="submit"
                 value="Opt In"
-                className="p-3 bg-[#0b57d0ff] text-white  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
+                className="p-3 bg-[#0b57d0ff] text-white pl-[16px]  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
             </form>
           </div>
           </div>
@@ -424,20 +364,11 @@ return (
 </form>
     </div>
       <hr className="my-6 border-gray-500" />
-      <div className="bottom flex flex-col md:flex-row justify-between  bg-[#00005A] items-center text-center md:text-left">
+      <div className="bottom flex flex-col md:flex-row justify-between pl-[18px] bg-[#00005A] items-center text-center md:text-left">
         <p className=" bg-[#00005A]">Tamizhi © 2025</p>
          </div>
     </section>
-  
-
-
-
-</div>
-
-
-
-
-
+    </div>
   );
 };
 
