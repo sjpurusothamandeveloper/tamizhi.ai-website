@@ -95,7 +95,7 @@ return (
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi.Ai</h1>
 
  <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
@@ -103,7 +103,7 @@ return (
           onClick={() => navigate("/contact")} >
           Contact Us
         </button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products</button>
         </div>
         {/* Mobile Menu Button */}
         <button
@@ -131,7 +131,7 @@ return (
      onClick={() => navigate("/contact")} >
      Contact Us
    </button>
-     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
+     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products</button>
    </div>
       
 )}
@@ -151,9 +151,9 @@ return (
         <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]"   key={index}
         
         >Our Services</h2>
-        <p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]">
+        {/* <p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]"> 
           Airportr streamlines your experience to, through, and from the airport.
-        </p>
+        </p> */}
         </div>
       ))}
       </div>
@@ -168,17 +168,17 @@ return (
       ard 1 */}
       <div className="bg-[#00005A] shadow-md rounded-lg p-6 w-full md:w-1/3" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}>
         <img
-          src="https://airportr.com/wp-content/uploads/2023/08/departure_img.png"
-          alt="Departure"
+          src="http//"
+          alt="Tamizhibook"
           className="w-full h-55 object-cover rounded-t-lg"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Departure</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Tamizhi Book</h5>
         <p className="text-white mt-2 bg-[#00005A]">We collect your bags from any home, hotel or office within our service area, and check them in for your flight.</p>
         <ul className="mt-4 space-y-2 bg-[#00005A]">
           <li className="flex items-center bg-[#00005A]">
             <img
               src="https://airportr.com/wp-content/uploads/2023/08/tick.svg"
-              alt=""
+              alt="ATS Tracker"
               className="w-4 h-4 mr-2 bg-[#00005A]"
             />
             <span className="text-white mt-2 bg-[#00005A]">Skip the check-in queues</span>
@@ -209,7 +209,7 @@ return (
           alt="Arrival"
           className="w-full h-55 object-cover rounded-t-lg text-white bg-[#00005A]"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Arrival</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">ATS Tracker</h5>
         <p className="text-white bg-[#00005A]">We collect your bags straight from the plane, and deliver them to any address within our service area.</p>
         <ul className="mt-4 space-y-2 text-white bg-[#00005A]">
           <li className="flex items-center text-white bg-[#00005A]">
@@ -285,9 +285,9 @@ return (
   <h2 className="text-[2.9vw] leading-[3.5vw] font-bold text-center mb-[0.9vw] font-objective text-[#00005A]">
     Our  Partners
   </h2>
-  <h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
+  {/* <h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
     You can use our services when flying with some of the world's largest airlines
-  </h5>
+  </h5> */}
 </div>
 
 
@@ -412,7 +412,7 @@ return (
           </div>
 
           <form className='bg-[#00005A] pt-[16px] '>
-  <select 
+   {/* <select 
     value={mylanguage} 
     onChange={handleChange} 
     className='bg-[#00005A] text-white'  // Set background color and text color for select
@@ -420,12 +420,12 @@ return (
     <option value="English" className='bg-[#00005A] text-white'>English</option> 
     <option value="Tamil" className='bg-[#00005A] text-white'>Tamil</option>
     <option value="Hindi" className='bg-[#00005A] text-white'>Hindi</option>
-  </select>
+  </select>  */}
 </form>
     </div>
       <hr className="my-6 border-gray-500" />
       <div className="bottom flex flex-col md:flex-row justify-between  bg-[#00005A] items-center text-center md:text-left">
-        <p className=" bg-[#00005A]">Tamizhi © 2025</p>
+        <p className=" bg-[#00005A]">Tamizhi© 2025</p>
          </div>
     </section>
   
