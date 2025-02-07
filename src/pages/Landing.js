@@ -58,7 +58,7 @@ const Landing = () => {
  <div className="ml-auto flex gap-2 bg-[#00005A]">
        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Service</button>
           <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Contact Us</button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Products Us</button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">product</button>
         </div>
       </header>
 
@@ -399,16 +399,9 @@ const Landing = () => {
       </div>
     </section>
   
-
-
-
 </div>
-
-
-
-
-
-  );
+ );
 };
+
 
 export default Landing;
