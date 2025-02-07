@@ -1,12 +1,14 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
+import ContactUs from "./pages/ContactUs"
 
 const App = () => {
   return (
     <Router>
-      <div >
-        <Landing />
-      </div>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
     </Router>
   );
 };

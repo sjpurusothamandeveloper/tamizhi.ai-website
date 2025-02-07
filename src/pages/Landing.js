@@ -1,19 +1,10 @@
 import React, { useState, useEffect,useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import "../App.css"; // Ensure your styles are imported here, including the carousel styles.
+import ReactDOM from "react-dom/client";
+import "../App.css"; 
 const Landing = () => {
-  
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default Language
- // Function to toggle dropdown visibility
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
- // Function to change language when an option is clicked
-  const changeLanguage = (language) => {
-    setSelectedLanguage(language);
-    setIsOpen(false); // Close the dropdown after selecting
-  };
+
 // Close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,18 +39,103 @@ const Landing = () => {
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+  const navigate = useNavigate();
 
- return (
+  const cardsRef = useRef(null);
+ const scrollToCards = () => {
+    if (cardsRef.current) {
+      cardsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);  // Toggle between true and false
+    console.log("Menu Open:", !isOpen);
+  };
+  
+  // Optionally, you can reset it manually somewhere else in the code, like on a different button click:
+
+  const [inputValue, setInputValue] = useState("");
+
+const handleInputChange = (event) => {
+  setInputValue(event.target.value);
+};
+
+const closeMenu = () => {
+  setIsOpen(false);  // Close the menu
+  setInputValue("");  // Reset the input field
+};
+console.log("Menu Open:", !isOpen);  // Comment this out when not needed anymore
+ 
+const [mylanguage, setMylanguage] = useState("English"); // Default language is English
+
+// This function is called when the user selects a new language
+const handleChange = (event) => {
+  const selectedLanguage = event.target.value;
+  setMylanguage(selectedLanguage);
+  changeLanguage(selectedLanguage);  // Call a function to handle the language change
+};
+
+// This function will perform actions when the language changes
+const changeLanguage = (language) => {
+  console.log(`Language changed to: ${language}`);
+  // Perform any action based on the selected language
+  // For example, you can translate the page content, or adjust styles based on the language
+  if (language === "English") {
+    // Handle English-specific logic
+  } else if (language === "Tamil") {
+    // Handle Tamil-specific logic
+  } else if (language === "Hindi") {
+    // Handle Hindi-specific logic
+  }
+};
+
+
+return (
     <div>
       {/* Header Section */}
       <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi.Ai</h1>
+        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
 
- <div className="ml-auto flex gap-2 bg-[#00005A]">
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Service</button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Contact Us</button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">product</button>
+ <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
+       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+          onClick={() => navigate("/contact")} >
+          Contact Us
+        </button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
         </div>
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white text-2xl focus:outline-none"
+          onClick={() => {
+            setIsOpen(!isOpen);
+            console.log("Menu Open:", !isOpen); // Debugging
+          }}
+        >
+          {isOpen ? "✖" : "☰"} {/* Toggle icon */}
+        </button>
+         {/* Mobile Dropdown Menu (Show/Hide on Click) */}
+         <div
+  className={`md:hidden flex flex-col items-center gap-3 mt-3 bg-blue-700 p-3 rounded-md transition-all duration-300 ease-in-out ${
+    isOpen ? "block" : "hidden"
+  }`}
+>
+
+
+{/* Mobile Menu (Shown When Open) */}
+{isOpen && (
+  <div className="ml-auto md:hidden flex flex-col items-center flex gap-2 bg-[#00005A] text-2xl focus:outline-none">
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
+  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+     onClick={() => navigate("/contact")} >
+     Contact Us
+   </button>
+     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
+   </div>
+      
+)}
+</div>
       </header>
 
       {/* Image Section */}
@@ -69,25 +145,34 @@ const Landing = () => {
         </div>
       </div>
 
-      <div>
-        <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]">Our Services</h2>
-        {/*<p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]"> 
+      <div  ref={cardsRef}>
+      {Array.from({ length:1}).map((_, index) => (
+        <div  id={`card-${index + 1}`}>
+        <h2 className="text-[2.9vw] leading-[1.4vw] font-bold text-center mb-[2.8vw] text-[#00005A] font-[Objective] pt-[8px]"   key={index}
+        
+        >Our Services</h2>
+        <p className="text-[1.41vw] leading-[1.6vw] text-[#00005A] text-center mb-[2.8vw]">
           Airportr streamlines your experience to, through, and from the airport.
-        </p>  */}
+        </p>
+        </div>
+      ))}
       </div>
-      <div className="bg-white rounded-[10px] py-10">
-  <div className="container mx-auto px-4 md:px-20">
+      
+
+      <div  className="bg-white rounded-[10px] py-10">
+      
+  <div className="container mx-auto px-4 md:px-20" >
     {/* Flex container for cards */}
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       {/* C
       ard 1 */}
       <div className="bg-[#00005A] shadow-md rounded-lg p-6 w-full md:w-1/3" style={{ borderRadius: "1.1vw 1.1vw 1.1vw 1.1vw" }}>
         <img
-          src="https://airportr.com/wp-content/uploads/2023/08/Departure_img.png"
+          src="https://airportr.com/wp-content/uploads/2023/08/departure_img.png"
           alt="Departure"
           className="w-full h-55 object-cover rounded-t-lg"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Tamizhi Book</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Departure</h5>
         <p className="text-white mt-2 bg-[#00005A]">We collect your bags from any home, hotel or office within our service area, and check them in for your flight.</p>
         <ul className="mt-4 space-y-2 bg-[#00005A]">
           <li className="flex items-center bg-[#00005A]">
@@ -124,7 +209,7 @@ const Landing = () => {
           alt="Arrival"
           className="w-full h-55 object-cover rounded-t-lg text-white bg-[#00005A]"
         />
-        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">ATS Tracker</h5>
+        <h5 className="text-xl font-bold mt-4 text-white bg-[#00005A]">Arrival</h5>
         <p className="text-white bg-[#00005A]">We collect your bags straight from the plane, and deliver them to any address within our service area.</p>
         <ul className="mt-4 space-y-2 text-white bg-[#00005A]">
           <li className="flex items-center text-white bg-[#00005A]">
@@ -192,13 +277,15 @@ const Landing = () => {
       </div>
     </div>
   </div>
+
+
 </div>
 
     <div className="p-[70px]">
   <h2 className="text-[2.9vw] leading-[3.5vw] font-bold text-center mb-[0.9vw] font-objective text-[#00005A]">
-    Our Partners
+    Our  Partners
   </h2>
-  {/*<h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
+  <h5 className="text-[1.41vw] leading-[3.5vw] text-center mb-[0.9vw] font-objective text-[#00005A]">
     You can use our services when flying with some of the world's largest airlines
   </h5>
 </div>
@@ -281,28 +368,31 @@ const Landing = () => {
       className="v2_footer flex-row bg-[#00005A] h-[305px] text-white mt-[5.9vw] p-[2vw] rounded-t-[1.5vw] relative z-10">
       <div className="top flex flex-row  text-white bg-[#00005A] md:flex-row justify-between">
       <div className="bg-[#00005A] text-white p-3">
-  <ul className="en flex flex-wrap justify-center md:justify-start items-center  bg-[#00005A] space-x-6">
-    {/* <li className=" bg-[#00005A]">
-      <a href="https://airportr.com/en/departure/" className="text-white bg-[#00005A]">Departure</a>
-    </li> */}
-    {/* <li className=" bg-[#00005A]">
-      <a href="https://airportr.com/en/arrival/" className="text-white bg-[#00005A]">Arrival</a>
-    </li> */}
-    {/* <li className="  bg-[#00005A]">
-      <a href="https://airportr.com/en/door-to-door/" className="text-white bg-[#00005A]">Door-to-door</a>
-    </li> */}
-    <li className=" bg-[#00005A]">
+  <ul className="en flex flex-wrap pl-[1px]  flex flex-col md:flex-row  bg-[#00005A] space-x-6">
+    <li className=" bg-[#00005A] pl-[23px]">
       <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">Refer-a-friend</a>
     </li>
-    <li className=" bg-[#00005A]">
-      <a href="https://airportr.com/en/terms-and-conditions/" className="text-white bg-[#00005A]">Terms of Use</a>
+    <li className="bg-[#00005A] ">
+      <a href="https://airportr.com/en/terms-and-conditions/" className="text-white bg-[#00005A] ">Terms of Use</a>
     </li>
-    <li className=" bg-[#00005A]">
+    <li className="bg-[#00005A]">
       <a href="https://airportr.com/en/privacy-policy/" className="text-white bg-[#00005A]">Privacy Policy</a>
     </li>
   </ul>
-
-          <div className="optin-footer mt-6 bg-[#00005A]">
+  <footer className="bg-[#00005A]  mr-[1vw]   p-[1vw]  pr-[10px] text-white py-1">
+      <div className="flex justify-end  absolute right-[8vw] top-[3vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <FaFacebook className="text-2xl hover:text-blue-500  bg-[#00005A] transition duration-300" />
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <FaInstagram className="text-2xl hover:text-pink-500  bg-[#00005A] transition duration-300" />
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <FaTwitter className="text-2xl hover:text-blue-400    bg-[#00005A] transition duration-300" />
+        </a>
+      </div>
+    </footer>
+      <div className="optin-footer mt-6 bg-[#00005A]">
             <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
               Sign up for emails and receive offers and service updates
             </h2>
@@ -319,89 +409,30 @@ const Landing = () => {
                 className="p-3 bg-[#0b57d0ff] text-white  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
             </form>
           </div>
-        </div>
-
-      
-        <footer className="bg-[#00005A]  mr-[1vw]  p-[1vw]  pr-[10px] text-white py-1">
-      <div className="flex justify-end  absolute right-[1vw] top-[1vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <FaFacebook className="text-2xl hover:text-blue-500  bg-[#00005A] transition duration-300" />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <FaInstagram className="text-2xl hover:text-pink-500  bg-[#00005A] transition duration-300" />
-        </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FaTwitter className="text-2xl hover:text-blue-400    bg-[#00005A] transition duration-300" />
-        </a>
-      </div>
-    </footer>
-    
-
-    <footer className="bg-[#00005A] text-white py-6 mt-12">
-        <div className="flex justify-center">
-          {/* Dropdown Button */}
-          <div className="relative inline-block text-left dropdown">
-            {/* <button
-              onClick={toggleDropdown}
-              className="bg-[#3498DB] text-white px-4 py-2 font-medium text-sm border-none cursor-pointer rounded-md focus:outline-none"
-            >
-             {selectedLanguage}
-            </button> */}
-
-            {/* Dropdown Content */}
-            {isOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-[#f1f1f1] shadow-lg z-10 rounded-md">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                  onClick={() => changeLanguage('English')}
-                >
-                  English
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                  onClick={() => changeLanguage('Hindi')}
-                >
-                  Hindi
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                  onClick={() => changeLanguage('Tamil')}
-                >
-                  Tamil
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-black hover:bg-[#ddd]"
-                  onClick={() => changeLanguage('French')}
-                >
-                  French
-                </a>
-              </div>
-            )}
           </div>
-        </div>
-      </footer>
+
+          <form className='bg-[#00005A] pt-[16px] '>
+  <select 
+    value={mylanguage} 
+    onChange={handleChange} 
+    className='bg-[#00005A] text-white'  // Set background color and text color for select
+  >
+    <option value="English" className='bg-[#00005A] text-white'>English</option> 
+    <option value="Tamil" className='bg-[#00005A] text-white'>Tamil</option>
+    <option value="Hindi" className='bg-[#00005A] text-white'>Hindi</option>
+  </select>
+</form>
     </div>
       <hr className="my-6 border-gray-500" />
-
       <div className="bottom flex flex-col md:flex-row justify-between  bg-[#00005A] items-center text-center md:text-left">
-        <p className=" bg-[#00005A]">Tamizhi.Ai© 2025</p>
-        <div className="flex items-center bg-[#00005A] space-x-2">
-          {/* <img 
-            src="https://airportr.com/wp-content/uploads/2023/08/footer_stars.svg"
-            alt="Trustpilot"
-            className="h-5 bg-[#00005A]"/>
-          <p className=" bg-[#00005A]">Trustpilot</p> */}
-        </div>
-      </div>
+        <p className=" bg-[#00005A]">Tamizhi © 2025</p>
+         </div>
     </section>
   
 </div>
  );
 };
+
 
 
 export default Landing;
