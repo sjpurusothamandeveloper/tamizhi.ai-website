@@ -3,9 +3,8 @@ import React, { useState, useEffect,} from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const ContactUs = () => {
-
-  const navigate = useNavigate(); // Initialize navigate
- const goToLandingPage = () => {
+const navigate = useNavigate(); // Initialize navigate
+const goToLandingPage = () => {
     navigate('/')
   }
    {/*form*/}
@@ -27,7 +26,6 @@ const ContactUs = () => {
     event.preventDefault();
     console.log("Form Data Submitted:", formData);
   };
-
    // Default language is English
   const [mylanguage, setMylanguage] = useState("English"); 
   // This function is called when the user selects a new language
@@ -36,8 +34,7 @@ const ContactUs = () => {
     setMylanguage(selectedLanguage);
     changeLanguage(selectedLanguage);  // Call a function to handle the language change
   };
-  
-  // This function will perform actions when the language changes
+    // This function will perform actions when the language changes
   const changeLanguage = (language) => {
     console.log(`Language changed to: ${language}`);
     // Perform any action based on the selected language
@@ -50,68 +47,65 @@ const ContactUs = () => {
       // Handle Hindi-specific logic
     }
   };
-  
-//menubar
-  const [isOpen, setIsOpen] = useState(false);
-    const toggleMenu = () => {
-      setIsOpen(!isOpen);  // Toggle between true and false
-      console.log("Menu Open:", !isOpen);
-    };
+
+  //menubar
     // Optionally, you can reset it manually somewhere else in the code, like on a different button click:
-  const [inputValue, setInputValue] = useState("");
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-  console.log("Menu Open:", !isOpen);  // Comment this out when not needed anymore
-  
+    const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <div>
-    {/*header*/}
     {/* Header Section */}
-    <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-        <h1 className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+    <header 
+      className="bg-[#00005A] text-white py-[13px] relative px-6 flex justify-between items-center shadow-md"
+      style={{ borderRadius: "0 0 1.5vw 1.5vw" }}
+    >
+      {/* Heading (Fixed, Won't Move) */}
+      <h1 className="text-2xl font-bold bg-[#00005A] relative text-white px-4 py-2 rounded">
+        Tamizhi
+      </h1>
 
- <div className="ml-auto hidden md:flex flex gap-2 bg-[#00005A]">
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={goToLandingPage}  >Services</button>
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-          onClick={() => navigate("/contact")} >
+      {/* Desktop Menu (Hidden on Mobile) */}
+      <div className="ml-auto hidden md:flex gap-2 bg-[#00005A]">
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={goToLandingPage}>
+          Services
+        </button>
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+          onClick={() => navigate("/contact")}
+        >
           Contact Us
         </button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
-        </div>
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white text-2xl focus:outline-none"
-          onClick={() => {
-            setIsOpen(!isOpen);
-            console.log("Menu Open:", !isOpen); // Debugging
-          }}
-        >
-          {isOpen ? "✖" : "☰"} {/* Toggle icon */}
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Products
         </button>
-         {/* Mobile Dropdown Menu (Show/Hide on Click) */}
-         <div
-  className={`md:hidden flex flex-col items-center gap-3 mt-3 bg-blue-700 p-3 rounded-md transition-all duration-300 ease-in-out ${
-    isOpen ? "block" : "hidden"
-  }`}
->
+      </div>
 
+      {/* Mobile Menu Button (Always Fixed in Top Right) */}
+      <button 
+        className="text-3xl font-bold hover:text-gray-300 absolute md:hidden top-4 right-4"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        ☰
+      </button>
+    </header>
 
-{/* Mobile Menu (Shown When Open) */}
-{isOpen && (
-  <div className="ml-auto md:hidden flex flex-col items-center flex gap-2 bg-[#00005A] text-2xl focus:outline-none">
-  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Services</button>
-  <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-     onClick={() => navigate("/contact")} >
-     Contact Us
-   </button>
-     <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
-   </div>
-      
-)}
-</div>
-      </header>
+    {/* Mobile Menu (Opens Below Button Without Moving Heading) */}
+    {isOpen && (
+      <div className="absolute top-16 right-4 md:hidden flex flex-col items-start bg-[#00005A] gap-2 p-4 rounded-lg shadow-lg">
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={goToLandingPage}>
+          Services
+        </button>
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+          onClick={() => navigate("/contact")}
+        >
+          Contact Us
+        </button>
+        <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Products
+        </button>
+      </div>
+    )}
+  
       {/*form*/}
       <div className="w-full min-h-screen flex pl-4 sm:pl-[100px] items-center">
   <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-screen-lg mx-auto">
@@ -210,7 +204,7 @@ const ContactUs = () => {
              </a>
            </div>
          </footer>
-           <div className="optin-footer mt-6  pl-[18px] bg-[#00005A]">
+           <div className="optin-footer mt-6  pl-[22px] bg-[#00005A]">
                  <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
                    Sign up for emails and receive offers and service updates
                  </h2>
@@ -242,7 +236,7 @@ const ContactUs = () => {
      </form>
          </div>
            <hr className="my-6 border-gray-500" />
-           <div className="bottom flex flex-col md:flex-row  pl-[25px] justify-between  bg-[#00005A] items-center text-center md:text-left">
+           <div className="bottom flex flex-col md:flex-row  pl-[33px] justify-between  bg-[#00005A] items-center text-center md:text-left">
              <p className=" bg-[#00005A]">Tamizhi © 2025</p>
               </div>
          </section>

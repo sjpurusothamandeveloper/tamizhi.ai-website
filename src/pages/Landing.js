@@ -1,7 +1,7 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useEffect,useRef } from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaTwitter, FaBars } from "react-icons/fa";
-import $ from "jquery"; // Import jQuery
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import "../App.css"; 
 import img1 from "../tamizhi1.jpg"
 import img2 from "../tamizhi2.jpg"
@@ -19,7 +19,6 @@ const Landing = () => {
       carousel.appendChild(clone);
     });
   }, []);
-  const navigate = useNavigate();
 //cards scrolldown
   const cardsRef = useRef(null);
  const scrollToCards = () => {
@@ -27,11 +26,6 @@ const Landing = () => {
       cardsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(() => {
-    $("#menuToggle").click(() => {
-      $("#menuItems").stop(true, true).slideToggle(); // Toggle menu visibility
-    });
-  }, []);
  // Default language is English
 const [mylanguage, setMylanguage] = useState("English"); 
 // This function is called when the user selects a new language
@@ -54,53 +48,70 @@ const changeLanguage = (language) => {
     // Handle Hindi-specific logic
   }
 };
-
-
+ //menubar
+    // Optionally, you can reset it manually somewhere else in the code, like on a different button click:
+    const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 return (
-    <div>
+  <div>
       {/* Header Section */}
-      <header className="bg-[#00005A] text-white py-[13px] px-6 flex justify-between items-center shadow-md" style={{ borderRadius: "0 0 1.5vw 1.5vw" }}>
-      <nav className="bg-[#00005A] p-4">
-      <div className="container mx-auto flex bg-[#00005A] justify-between items-center">
-        {/* Left Side: Heading */}
-        <h1 id="heading" className="text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">Tamizhi</h1>
+      <header
+        className="bg-[#00005A] text-white py-[13px] relative px-6 flex justify-between items-center shadow-md"
+        style={{ borderRadius: "0 0 1.5vw 1.5vw" }}
+      >
+        {/* Heading (Fixed, Won't Move) */}
+        <h1 className="text-2xl font-bold bg-[#00005A] relative text-white px-4 py-2 rounded">
+          Tamizhi
+        </h1>
 
-        {/* Right Side: Menu Toggle Button */}
-        <button id="menuToggle" className="md:hidden pl-[140px]  bg-[#00005A] text-white text-3xl">
+        {/* Desktop Menu (Hidden on Mobile) */}
+        <div className="ml-auto hidden md:flex gap-2 bg-[#00005A]">
+          <button
+            className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+            onClick={scrollToCards}
+          >
+            Services
+          </button>
+          <button
+            className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+            onClick={() => navigate("/contact")}
+          >
+            Contact Us
+          </button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+            Products
+          </button>
+        </div>
+
+        {/* Mobile Menu Button (Always Fixed in Top Right) */}
+        <button
+          className="text-3xl font-bold hover:text-gray-300 absolute md:hidden top-4 right-4"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           ☰
         </button>
-
-        {/* Large Screen Menu */}
-        <div className="ml-auto hidden md:flex text-right pl-[800px] flex gap-2 bg-[#00005A]">
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" onClick={scrollToCards}>Services</button>
-       <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
-          onClick={() => navigate("/contact")} >
-          Contact Us
-        </button>
-          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700" >Products Us</button>
-        </div>
-      </div>
-
-      {/* Mobile Menu (Hidden by default) */}
-       {/* Mobile Menu (Hidden by Default, Shows in a Row When Open) */}
-     {/* Mobile Menu (Initially Hidden) */}
-      <div
-        id="menuItems"
-        className="hidden md:hidden flex flex-row justify-center gap-2 p-4 bg-[#00005A]"
-      >
-        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
-          Services
-        </button>
-        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
-          Contact Us
-        </button>
-        <button className="text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
-          Products
-        </button>
-      </div>
-    </nav>
-  
       </header>
+
+      {/* Mobile Menu (Opens Below Button Without Moving Heading) */}
+      {isOpen && (
+        <div className="absolute top-16 right-4 md:hidden flex flex-col items-start bg-[#00005A] gap-2 p-4 rounded-lg shadow-lg">
+          <button
+            className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+            onClick={scrollToCards}
+          >
+            Services
+          </button>
+          <button
+            className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+            onClick={() => navigate("/contact")}
+          >
+            Contact Us
+          </button>
+          <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+            Products
+          </button>
+        </div>
+      )}
 
       {/* Image Section */}
       <div className="relative h-[500px]">
@@ -333,7 +344,7 @@ return (
       </div>
     </footer>
       <div className="optin-footer mt-6 bg-[#00005A]">
-            <h2 className="text-lg bg-[#00005A] text-[1.7vw] pl-[18px]  pt-[16px] font-bold">
+            <h2 className="text-lg bg-[#00005A] text-[1.7vw] pl-[22px]  pt-[16px] font-bold">
               Sign up for emails and receive offers and service updates
             </h2>
             <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
@@ -364,7 +375,7 @@ return (
 </form>
     </div>
       <hr className="my-6 border-gray-500" />
-      <div className="bottom flex flex-col md:flex-row justify-between pl-[18px] bg-[#00005A] items-center text-center md:text-left">
+      <div className="bottom flex flex-col md:flex-row justify-between pl-[35px] bg-[#00005A] items-center text-center md:text-left">
         <p className=" bg-[#00005A]">Tamizhi © 2025</p>
          </div>
     </section>
