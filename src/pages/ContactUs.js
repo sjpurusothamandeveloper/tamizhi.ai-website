@@ -56,14 +56,14 @@ const goToLandingPage = () => {
   return (
     <div>
     {/* Header Section */}
-    <header 
-      className="bg-[#00005A] text-white py-[13px] relative px-6 flex justify-between items-center shadow-md"
-      style={{ borderRadius: "0 0 1.5vw 1.5vw" }}
-    >
-      {/* Heading (Fixed, Won't Move) */}
-      <h1 className="text-2xl font-bold bg-[#00005A] relative text-white px-4 py-2 rounded">
-        Tamizhi
-      </h1>
+    <header
+  className="bg-[#00005A] text-white py-[13px] px-6 flex items-center justify-between w-full 
+             rounded-b-[6vw] sm:rounded-b-[2vw] shadow-md">
+  {/* Heading (Fixed Position) */}
+  <h1 className="text-lg sm:text-2xl font-bold bg-[#00005A] text-white px-4 py-2 rounded">
+    Tamizhi
+  </h1>
+
 
       {/* Desktop Menu (Hidden on Mobile) */}
       <div className="ml-auto hidden md:flex gap-2 bg-[#00005A]">
@@ -73,7 +73,7 @@ const goToLandingPage = () => {
         <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
           onClick={() => navigate("/contact")}
         >
-          Contact Us
+          ContactUs
         </button>
         <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
           Products
@@ -98,7 +98,7 @@ const goToLandingPage = () => {
         <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
           onClick={() => navigate("/contact")}
         >
-          Contact Us
+          ContactUs
         </button>
         <button className="bg-[#00005A] text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
           Products
@@ -166,7 +166,7 @@ const goToLandingPage = () => {
     <div>
       <button
         type="submit"
-        className="bg-blue-600 text-white p-3 rounded hover:bg-blue-700 w-full sm:w-[150px] w-[90px] mx-auto"
+        className="bg-blue-600 text-white p-3 rounded hover:bg-blue-700 w-[1300] sm:w-[150px]  rounded-[1.5vw] sm:rounded-[2vw] mx-auto"
       >
         Submit
       </button>
@@ -180,10 +180,13 @@ const goToLandingPage = () => {
            className="v2_footer flex-row bg-[#00005A] h-[305px] text-white mt-[5.9vw] p-[2vw] rounded-t-[1.5vw] relative z-10">
            <div className="top flex flex-row  text-white bg-[#00005A] md:flex-row justify-between">
            <div className="bg-[#00005A] text-white p-3">
-       <ul className="en flex flex-wrap pl-[1px]  flex flex-col md:flex-row  bg-[#00005A] space-x-6">
-         <li className=" bg-[#00005A] pl-[23px]">
-           <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">Refer-a-friend</a>
-         </li>
+       <ul className="en flex flex-wrap pl-[1px]  space-y-3 md:space-y-0 md:space-x-6  flex flex-col md:flex-row  bg-[#00005A] ">
+       <li className="bg-[#00005A] pl-[3px] pr-[40px] md:pr-0"> 
+  <a href="https://airportr.com/en/refer-a-friend/" className="text-white bg-[#00005A]">
+    Refer-a-friend
+  </a>
+</li>
+
          <li className="bg-[#00005A] ">
            <a href="https://airportr.com/en/terms-and-conditions/" className="text-white bg-[#00005A] ">Terms of Use</a>
          </li>
@@ -192,7 +195,7 @@ const goToLandingPage = () => {
          </li>
        </ul>
        <footer className="bg-[#00005A]  mr-[1vw]  p-[1vw]  pr-[10px] text-white py-1">
-           <div className="flex justify-end  absolute right-[8vw] top-[3vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
+           <div className="flex justify-end  absolute right-[3vw] top-[3vw] bg-[#00005A] space-x-3 mr-[1vw]p-[1vw]  mr-1 pr-[1px] ">
              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                <FaFacebook className="text-2xl hover:text-blue-500  bg-[#00005A] transition duration-300" />
              </a>
@@ -204,44 +207,33 @@ const goToLandingPage = () => {
              </a>
            </div>
          </footer>
-           <div className="optin-footer mt-6  pl-[22px] bg-[#00005A]">
-                 <h2 className="text-lg bg-[#00005A] text-[1.7vw]  pt-[16px] font-bold">
-                   Sign up for emails and receive offers and service updates
-                 </h2>
-                 <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
-                   <div className="input w-full bg-[#00005A] sm:w-auto">
-                     <input
-                       type="email"
-                       placeholder="Enter email"
-                       className="p-2 w-full sm:w-64 border bg-[#00005A] border-gray-300 rounded-md text-black" style={{ borderRadius: "1.5vw 1.5vw 1.5vw 1.5vw" }} />
-                   </div>
-                   <input
-                     type="submit"
-                     value="Opt In"
-                     className="p-3 bg-[#0b57d0ff] text-white  pt-[ 3.8vw 7.4vw 3.8vw 9.4vw] rounded-md cursor-pointer hover:bg-gray-200 "style={{ borderRadius: "1.2vw 1.2vw 1.2vw 1.2vw"  }} />
-                 </form>
-               </div>
-               </div>
-     
-               <form className='bg-[#00005A] pt-[16px] '>
-       <select 
-         value={mylanguage} 
-         onChange={handlelanguageChange} 
-         className='bg-[#00005A] text-white'  // Set background color and text color for select
-       >
-         <option value="English" className='bg-[#00005A] text-white'>English</option> 
-         <option value="Tamil" className='bg-[#00005A] text-white'>Tamil</option>
-         <option value="Hindi" className='bg-[#00005A] text-white'>Hindi</option>
-       </select>
-     </form>
+         <div className="optin-footer w-full mt-6 bg-[#00005A]">
+  <h2 className="text-lg bg-[#00005A] text-[1.7vw] pl-[22px] w-full pt-[16px]  font-bold">
+    Sign up for emails and receive offers and service updates
+  </h2>
+  <form className="optin-footer-form mt-4 bg-[#00005A] flex flex-row space-x-3">
+    <div className="input w-full pl-[16px] bg-[#00005A] sm:w-auto">
+      <input
+        type="email"
+        placeholder="Enter email"
+        className="p-2 w-60 sm:w-60 border pl-[15px]  border-gray-300 rounded-md bg-[#00005A] text-black rounded-[3vw] sm:rounded-[2vw]"/>
+    </div>
+    <div  className=' pr-[45px] bg-[#00005A]'>
+    <input
+      type="submit"
+      value="Opt In"
+     className="p-3 bg-[#0b57d0ff] text-white  pl-[28px] pr-[28px] rounded-md cursor-pointer hover:bg-gray-200 rounded-[3vw] sm:rounded-[2vw]"/>
+     </div> 
+  </form>
+   </div>
+   </div>
          </div>
            <hr className="my-6 border-gray-500" />
            <div className="bottom flex flex-col md:flex-row  pl-[33px] justify-between  bg-[#00005A] items-center text-center md:text-left">
-             <p className=" bg-[#00005A]">Tamizhi © 2025</p>
-              </div>
+           <p className=" bg-[#00005A]">Tamizhi © 2025</p>
+           </div>
          </section>
     </div>
-
   );
 };
 
