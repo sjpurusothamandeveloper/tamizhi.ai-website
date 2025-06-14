@@ -8,7 +8,7 @@ const App = () => {
     <Router> {/* Wrap the entire component inside Router */}
       <Routes>
         <Route
-          path="/"
+          path="/tamizhi.ai-website"
           element={<Landing />}
         />
         <Route
