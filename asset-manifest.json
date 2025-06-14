@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tamizhi.ai-website/static/css/main.08237a16.css",
-    "main.js": "/tamizhi.ai-website/static/js/main.b196020e.js",
+    "main.js": "/tamizhi.ai-website/static/js/main.ab222a9f.js",
     "static/media/tamizhi1.jpg": "/tamizhi.ai-website/static/media/tamizhi1.2214c03fa316af5ddff1.jpg",
     "static/media/tamizhi2.jpg": "/tamizhi.ai-website/static/media/tamizhi2.88f55bab37002bfa255a.jpg",
     "index.html": "/tamizhi.ai-website/index.html",
     "main.08237a16.css.map": "/tamizhi.ai-website/static/css/main.08237a16.css.map",
-    "main.b196020e.js.map": "/tamizhi.ai-website/static/js/main.b196020e.js.map"
+    "main.ab222a9f.js.map": "/tamizhi.ai-website/static/js/main.ab222a9f.js.map"
   },
   "entrypoints": [
     "static/css/main.08237a16.css",
-    "static/js/main.b196020e.js"
+    "static/js/main.ab222a9f.js"
   ]
 }
