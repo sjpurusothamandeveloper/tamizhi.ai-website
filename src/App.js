@@ -10,7 +10,8 @@ const App = () => {
         <Route
           path="/tamizhi.ai-website"
           element={<Landing />}
-        />
+        >
+        </Route>
         <Route
           path="/contact"
           element={<ContactUs />}
